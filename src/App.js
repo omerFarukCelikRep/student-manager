@@ -1,4 +1,4 @@
-import './App.css';
+import './App.scss';
 import { useState } from 'react';
 
 function App() {
@@ -9,7 +9,8 @@ function App() {
   const [studentInstructorName, setStudentInstructorName] = useState("");
   const [studentScore, setStudentScore] = useState("");
 
-  const [student, setStudent] = useState({});
+  // const [student, setStudent] = useState({});
+  const [students, setStudents] = useState([]);
 
   const [studentNameError, setStudentNameError] = useState(false);
   const [studentCourseNameError, setStudentCourseNameError] = useState(false);
@@ -25,12 +26,26 @@ function App() {
 
     if (studentName && studentCourseName && studentInstructorName && studentScore) {
 
-      setStudent({
+      // setStudent({
+      //   name: studentName,
+      //   courseName: studentCourseName,
+      //   instructorName: studentInstructorName,
+      //   score: studentScore
+      // });
+
+      // setStudents([...students, {
+      //   name: studentName,
+      //   courseName: studentCourseName,
+      //   instructorName: studentInstructorName,
+      //   score: studentScore
+      // }]);
+
+      setStudents(prevStudentList => [...prevStudentList, {
         name: studentName,
         courseName: studentCourseName,
         instructorName: studentInstructorName,
         score: studentScore
-      });
+      }]);
 
       setStudentName("");
       setStudentCourseName("");
@@ -67,20 +82,22 @@ function App() {
       <div className='student'>
         <table>
           <thead>
+          </thead>
+          <tbody>
             <tr>
               <th>Name</th>
               <th>Course Name</th>
               <th>Instructor Name</th>
               <th>Score</th>
             </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{student.name}</td>
-              <td>{student.courseName}</td>
-              <td>{student.instructorName}</td>
-              <td>{student.score}</td>
-            </tr>
+            {students.map(({ name, courseName, instructorName, score }) => (
+              <tr key={name}>
+                <td>{name}</td>
+                <td>{courseName}</td>
+                <td>{instructorName}</td>
+                <td>{score}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
