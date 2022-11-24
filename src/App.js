@@ -1,5 +1,8 @@
 import "./App.scss";
 import { useState } from "react";
+import Header from "./components/shared/header/Header";
+import List from "./components/student/list/List";
+import Create from "./components/student/create/Create";
 
 function App() {
   // let studentName = "Ömer Faruk Çelik";
@@ -24,21 +27,16 @@ function App() {
   //   useState(false);
   // const [studentScoreError, setStudentScoreError] = useState(false);
 
-  const [error, setError] = useState({
-    name: false,
-    course: false,
-    instructor: false,
-    score: false,
+  const [isStudentValid, setIsStudentValid] = useState({
+    name: true,
+    course: true,
+    instructor: true,
+    score: true,
   });
   const addStudent = (event) => {
     event.preventDefault();
 
-    setError({
-      name: false,
-      course: false,
-      instructor: false,
-      score: false,
-    });
+    setIsStudentValid({ ...student });
 
     if (Object.values(student).every((value) => value)) {
       // setStudent({
@@ -63,31 +61,36 @@ function App() {
         instructor: "",
         score: "",
       });
-    } else {
-      Object.keys(student).forEach(key => !student[key] && setError(prevError => ({...prevError, [key]:true})));
-      // Object.keys(student).forEach((key) => {
-      //   // !student[key] && setError((prevError) => ({
-      //   //   ...prevError,
-      //   //   [key]: !Boolean(student[key]),
-      //   // }));
-      //   if (!student[key]) {
-      //     setError((prevError) => ({
-      //       ...prevError,
-      //       [key]: !Boolean(student[key]),
-      //     }));
-
-      //     console.log({ ...error, [key]: !Boolean(student[key]) })
-      //   }
-      // });
-      // !student.name &&
-      //   setError((prevError) => ({ ...prevError, nameError: true }));
-      // !student.course &&
-      //   setError((prevError) => ({ ...prevError, courseError: true }));
-      // !student.instructor &&
-      //   setError((prevError) => ({ ...prevError, instructorError: true }));
-      // !student.score &&
-      //   setError((prevError) => ({ ...prevError, scoreError: true }));
     }
+    // else {
+    //   Object.keys(student).forEach(
+    //     (key) =>
+    //       !student[key] &&
+    //       setIsValid((prevError) => ({ ...prevError, [key]: false }))
+    //   );
+    //   // Object.keys(student).forEach((key) => {
+    //   //   // !student[key] && setError((prevError) => ({
+    //   //   //   ...prevError,
+    //   //   //   [key]: !Boolean(student[key]),
+    //   //   // }));
+    //   //   if (!student[key]) {
+    //   //     setError((prevError) => ({
+    //   //       ...prevError,
+    //   //       [key]: !Boolean(student[key]),
+    //   //     }));
+
+    //   //     console.log({ ...error, [key]: !Boolean(student[key]) })
+    //   //   }
+    //   // });
+    //   // !student.name &&
+    //   //   setError((prevError) => ({ ...prevError, nameError: true }));
+    //   // !student.course &&
+    //   //   setError((prevError) => ({ ...prevError, courseError: true }));
+    //   // !student.instructor &&
+    //   //   setError((prevError) => ({ ...prevError, instructorError: true }));
+    //   // !student.score &&
+    //   //   setError((prevError) => ({ ...prevError, scoreError: true }));
+    // }
   };
 
   // const setAndUpdateName = studentName => {
@@ -104,97 +107,14 @@ function App() {
 
   return (
     <div className="app">
-      <h1 className="app-header">Student Manager</h1>
-      <div className="student">
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Course Name</th>
-              <th>Instructor Name</th>
-              <th>Score</th>
-            </tr>
-          </thead>
-          <tbody>
-            {students.map(({ name, course, instructor, score }, index) => (
-              <tr key={index}>
-                <td>{name}</td>
-                <td>{course}</td>
-                <td>{instructor}</td>
-                <td>{score}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <form>
-        <div className="form-group">
-          <label>Name</label>
-          <input
-            type="text"
-            value={student.name}
-            minLength={2}
-            placeholder="Enter Student Name"
-            onChange={(event) =>
-              setStudent((prevStudent) => ({
-                ...prevStudent,
-                name: event.target.value,
-              }))
-            }
-          />
-          {error.name && <span>Geçerli bir değer giriniz!</span>}
-        </div>
-        <div className="form-group">
-          <label>Course Name</label>
-          <input
-            type="text"
-            value={student.course}
-            placeholder="Enter Student Course Name"
-            onChange={(event) =>
-              setStudent((prevStudent) => ({
-                ...prevStudent,
-                course: event.target.value,
-              }))
-            }
-          />
-          {error.course && <span>Geçerli bir değer giriniz!</span>}
-        </div>
-        <div className="form-group">
-          <label>Instructor Name</label>
-          <input
-            type="text"
-            value={student.instructor}
-            placeholder="Enter Student Instructor Name"
-            onChange={(event) =>
-              setStudent((prevStudent) => ({
-                ...prevStudent,
-                instructor: event.target.value,
-              }))
-            }
-          />
-          {error.instructor && <span>Geçerli bir değer giriniz!</span>}
-        </div>
-        <div className="form-group">
-          <label>Score</label>
-          <input
-            type="number"
-            value={student.score}
-            placeholder="Enter Student Score"
-            onChange={(event) =>
-              setStudent((prevStudent) => ({
-                ...prevStudent,
-                score: event.target.value,
-              }))
-            }
-          />
-          {error.score && <span>Geçerli bir değer giriniz!</span>}
-        </div>
-        <div className="form-group">
-          <button className="btn-primary" onClick={addStudent}>
-            Add Student
-          </button>
-        </div>
-      </form>
+      <Header />
+      <List students={students} />
+      <Create
+        student={student}
+        setStudent={setStudent}
+        isStudentValid={isStudentValid}
+        addStudent={addStudent}
+      />
     </div>
   );
 }
