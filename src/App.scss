@@ -51,10 +51,20 @@ $main-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
   }
 
   table {
+
     td,
     th {
       width: auto;
       text-align: start;
+    }
+    
+    thead > :first-child{
+      text-transform: uppercase;
+      font-size: 22px;
+      text-align-last:center ;
+      background-color: $primary-color;
+      color: $secondary-color;
+      box-shadow: $main-box-shadow;
     }
   }
 
