@@ -1,6 +1,6 @@
 import React from "react";
 
-const Create = ({ student , setStudent, isStudentValid, addStudent}) => {
+const Create = ({ student, isStudentValid, handleStudentProp, addStudent }) => {
   return (
     <>
       <form>
@@ -12,10 +12,7 @@ const Create = ({ student , setStudent, isStudentValid, addStudent}) => {
             minLength={2}
             placeholder="Enter Student Name"
             onChange={(event) =>
-              setStudent((prevStudent) => ({
-                ...prevStudent,
-                name: event.target.value,
-              }))
+              handleStudentProp({ name: event.target.value })
             }
           />
           {!isStudentValid.name && <span>Geçerli bir değer giriniz!</span>}
@@ -27,10 +24,7 @@ const Create = ({ student , setStudent, isStudentValid, addStudent}) => {
             value={student.course}
             placeholder="Enter Student Course Name"
             onChange={(event) =>
-              setStudent((prevStudent) => ({
-                ...prevStudent,
-                course: event.target.value,
-              }))
+              handleStudentProp({ course: event.target.value })
             }
           />
           {!isStudentValid.course && <span>Geçerli bir değer giriniz!</span>}
@@ -42,10 +36,7 @@ const Create = ({ student , setStudent, isStudentValid, addStudent}) => {
             value={student.instructor}
             placeholder="Enter Student Instructor Name"
             onChange={(event) =>
-              setStudent((prevStudent) => ({
-                ...prevStudent,
-                instructor: event.target.value,
-              }))
+              handleStudentProp({ instructor: event.target.value })
             }
           />
           {!isStudentValid.instructor && (
@@ -59,10 +50,7 @@ const Create = ({ student , setStudent, isStudentValid, addStudent}) => {
             value={student.score}
             placeholder="Enter Student Score"
             onChange={(event) =>
-              setStudent((prevStudent) => ({
-                ...prevStudent,
-                score: event.target.value,
-              }))
+              handleStudentProp({ score: event.target.value })
             }
           />
           {!isStudentValid.score && <span>Geçerli bir değer giriniz!</span>}
