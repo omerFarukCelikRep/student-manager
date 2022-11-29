@@ -4,10 +4,10 @@ const Input = ({ type, value, placeholder, onChangeEvent }) => {
   return (
     <>
       <input
-        type={type}
-        value={value}
-        placeholder={placeholder}
-        onChange={onChangeEvent}
+        type={type ?? "text"}
+        value={value ?? ""}
+        placeholder={placeholder ?? ""}
+        onChange={onChangeEvent ?? this.onChange}
       />
     </>
   );
