@@ -7,6 +7,16 @@ const List = ({ students }) => {
         <table>
           <thead>
             <tr>
+              <th colSpan={4} >Student List</th>
+            </tr>
+            <tr>
+              <th colSpan={2}></th>
+              <th style={{textAlign:"end"}}>Search :</th>
+              <th>
+                <input style={{width:"90%"}} type="text" onChange={event => console.log(event.target.value)} />
+              </th>
+            </tr>
+            <tr>
               <th>Name</th>
               <th>Course Name</th>
               <th>Instructor Name</th>
