@@ -47,7 +47,7 @@ function App() {
       <Create
         student={student}
         isStudentValid={isStudentValid}
-        handleStudentInputProp={handleStudentInputProp}
+        handleStudentProp={handleStudentInputProp}
         addStudent={addStudent}
       />
     </div>
